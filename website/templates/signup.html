@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block title %}Зареєструватись{% endblock %} {% block
+content %}
+<form method="POST">
+  <h3 align="center">Зареєструватись</h3>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      type="text"
+      id="email"
+      name="email"
+      class="form-control"
+      placeholder="Enter Email"
+    />
+    <label for="username">Нікнейм</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      class="form-control"
+      placeholder="Enter Username"
+    />
+    <label for="password1">Пароль</label>
+    <input
+      type="password"
+      id="password1"
+      name="password1"
+      class="form-control"
+      placeholder="Enter Password"
+    />
+    <br />
+    <div align="center">
+      <button class="btn btn-primary" type="submit">Уввійти</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

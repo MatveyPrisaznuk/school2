@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  .card {
+    margin-bottom: 20px;
+    border: 2px solid #007BFF;
+    border-radius: 10px;
+  }
+
+  .card-header {
+    background-color: #007BFF;
+    color: #fff;
+    border-bottom: 2px solid #0056b3;
+  }
+
+  .card-body {
+    position: relative;
+    padding: 20px;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+
+  .user-info img {
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .delete-btn {
+    display: flex;
+    align-items: center;
+  }
+
+  .delete-btn a {
+    color: #dc3545;
+    margin-right: 10px;
+  }
+
+  .card-text {
+    margin-bottom: 15px;
+  }
+
+  .comments-section {
+    margin-top: 15px;
+  }
+
+  .comment {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 5px;
+  }
+
+  .comment-user {
+    font-weight: bold;
+  }
+
+  .comment-date {
+    color: #6c757d;
+  }
+
+  .create-post-btn {
+    margin-top: 20px;
+  }
+
+  .card-text {
+    top: 40px; 
+}
+</style>
+
+<h1 align="center">Розклад</h1>
+
+<div id="posts">
+  {% for post in posts %}
+  <div class="card">
+    <div class="delete-btn">
+      {% if user.id == post.author %}
+      <a href="/delete-post/{{post.id}}" class="btn btn-outline-light">Видалити</a>
+      {% endif %}
+    </div>
+    <div class="card-header">
+      <div class="user-info">
+        <img src="{{ url_for('static', filename='user.png') }}" alt="" width="32" height="32" class="rounded-circle">
+        {{post.user.username}}
+      </div>
+    
+    </div>
+    <div class="card-body">
+      
+      <div class="card-text">{{post.text}}</div>
+      <div class="comments-section">
+        <div class="collapse" id="comments-{{post.id}}">
+          <div class="card">
+            <div class="card-body">
+              {% for comment in post.comments %}
+              <div class="comment">
+                <div class="comment-user">
+                  <a href="/posts/{{comment.user.username}}">{{comment.user.username}}</a>:
+                </div>
+                <div>{{comment.text}}</div>
+                <div class="comment-date">
+                  <small class="text-muted">{{comment.date_created}}</small>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-muted">{{post.date_created}}</div>
+  </div>
+  {% endfor %}
+</div>
+
+{% block footer %}
+<div align="center" class="create-post-btn">
+  <a href="/create-post" class="btn btn-primary btn-lg">Створити новий розклад</a>
+</div>
+{% endblock %}
+
+{% endblock %}
